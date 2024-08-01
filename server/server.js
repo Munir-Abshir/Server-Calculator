@@ -50,6 +50,8 @@ if (req.body.operator == "+"){
   req.body['result'] = answer;
 }
 
+
+
 console.log(req.body)
 calculations.push(req.body);
 console.log(calculations);
