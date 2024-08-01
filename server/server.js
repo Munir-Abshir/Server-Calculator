@@ -30,10 +30,37 @@ app.get("/calculations", function(req,res){
 // POST /calculations
 
 app.post('/calculations', function(req,res){
-console.log(req.body);
-// Do your math here
+// console.log(req.body.operator)
+// let newMaths = req.body;
+if (req.body.operator == "+"){
+  let answer = Number(req.body.numOne) + parseInt(req.body.numTwo);
+  console.log(answer);
+  req.body['result'] = answer;
+} else if(req.body.operator == "-"){
+  let answer = Number(req.body.numOne) - parseInt(req.body.numTwo);
+  console.log(answer);
+  req.body['result'] = answer;
+} else if(req.body.operator == "*"){
+  let answer = Number(req.body.numOne) * parseInt(req.body.numTwo);
+  console.log(answer);
+  req.body['result'] = answer;
+} else if(req.body.operator == "/"){
+  let answer = Number(req.body.numOne) / parseInt(req.body.numTwo);
+  console.log(answer);
+  req.body['result'] = answer;
+}
 
+console.log(req.body)
+calculations.push(req.body);
+console.log(calculations);
+res.sendStatus(201);
+// Do your math here
+ 
 })
+
+
+
+
 // PLEASE DO NOT MODIFY ANY CODE BELOW THESE BEARS:
 // 🐻  🐻‍❄️  🧸  🐻  🐻‍❄️  🧸  🐻  🐻‍❄️  🧸  🐻  🐻‍❄️  🧸
 

@@ -1,4 +1,4 @@
-let opperator = '';
+let operator = '';
 
 console.log('client.js is sourced!');
 function onReady(){
@@ -10,15 +10,24 @@ axios({
     console.log(response)
     let calculationsFromServer = response.data
     let resultContent = document.querySelector("#results");
+    let newResultContent = document.querySelector('#Newresults');
     for(let result of calculationsFromServer){
         resultContent.innerHTML +=
-        `<tr>
-            <td>${result.numOne} </td>
-            <td>${result.numTwo} </td>
-            <td>${result.operator} </td>
-            <td>${result.result} </td>
-        
+        `<div id="table">
+            <h4>${result.numOne} ${result.operator} ${result.numTwo} = ${result.result}</h4>
+
+        </div>
         `;
+
+
+        // for(let result of calculationsFromServer){
+            newResultContent.innerHTML =
+            `<div>
+                <h2> ${calculationsFromServer[calculationsFromServer.length - 1].result}</h2>
+    
+            </div>
+            `;
+        // }
     }
 }).catch(function(error){
     console.log(error);
@@ -30,26 +39,39 @@ axios({
 
 
 function setOpperator(event){
-    event.preventDefault();
+    event.preventDefault(event);
     console.log('what was clicked:', event.target);
     console.log('the opperator?:', event.target.textContent);
-    opperator = event.target.textContent;
+    operator = event.target.textContent;
 }
 console.log("what")
+
 
 function standard(event){
 let firstNumber = document.querySelector('#NumberOne').value;
 let secondNumber = document.querySelector('#NumberTwo').value;
-axios.post("/calculations", {firstNumber, secondNumber, opperator} )
+
+let newCalculations = {
+    numOne:firstNumber, 
+    numTwo: secondNumber, 
+    operator: operator
+} ;
+
+axios.post("/calculations", newCalculations )
 .then(response => {
     console.log('post works', response)
 }) .catch (error => {
     console.log('post failed');
+    response.sendStatus(200);
 })
 
 
-console.log("my numbers are:" ,firstNumber + secondNumber)
-
-
+}
+function erase(event){    
+document.querySelector('#NumberOne').value = "";
+document.querySelector('#NumberTwo').value = "";
 
 }
+onReady()
+
+
